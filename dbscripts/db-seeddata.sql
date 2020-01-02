@@ -15,7 +15,7 @@ VALUES (1, 'USER');
 INSERT IGNORE INTO `user_roles` (`user_id`, `role`)
 VALUES (1, 'ADMIN');
 
-INSERT IGNORE INTO `helpintro` (`lang`, `pageid`, `helpintro`, `created_at`, `updated_at`))
+INSERT IGNORE INTO `helpintro` (`lang`, `pageid`, `helpintro`, `created_at`, `updated_at`)
 VALUES ('en', 'HOME',
 '
 {
@@ -85,8 +85,8 @@ VALUES ('en', 'CONTACTUS',
 '
 {
     steps: [
-     
-     
+
+
       {
         element: "#aboutus",
         intro: "<b><u>This is about us</u></b><br/>second line",

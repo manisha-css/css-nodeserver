@@ -30,5 +30,6 @@
   "common.input.validation.error ": "common.input.validation.error ",
   "login.sucess": "Login is successful.",
   "login.token.invalid": "Invalid login token",
-  "upload.error": "Error while uploading profile image"
+  "upload.error": "Error while uploading profile image",
+  "remote.logging.successful": "Logs recorded successfully"
 }
