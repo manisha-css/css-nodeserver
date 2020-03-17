@@ -105,11 +105,15 @@ const updatePassword = async (newpassword, userId) => {
   await User.update({ userPassword: newpassword }, { where: { id: userId } });
 };
 
-const updateProfile = async (reqUserObj, userId) => {
+const updateMyProfile = async (reqUserObj, userId) => {
   await User.update(
     { givenName: reqUserObj.givenName, publicProfile: reqUserObj.publicProfile, profileImage: reqUserObj.profileImage },
     { where: { id: userId } }
   );
+};
+
+const uploadProfile = async (profileImage, userId) => {
+  await User.update({ profileImage }, { where: { id: userId } });
 };
 
 module.exports = {
@@ -122,6 +126,7 @@ module.exports = {
   createUser,
   updateVerificationCode,
   updateAccountLocked,
-  updateProfile,
+  updateMyProfile,
+  uploadProfile,
   updatePassword
 };

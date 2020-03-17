@@ -313,6 +313,30 @@ const updateMyProfile = async (req, res) => {
   });
 };
 
+const uploadProfile = async (req, res) => {
+  let infoResponse;
+  // validations for uploaded file
+  upload(req, res, async err => {
+    if (err) {
+      infoResponse = new InfoResponse(res.translate('upload.error'));
+      res.status(CONSTANTS.HTTP_STATUS_SERVER_ERROR).json(infoResponse);
+      return;
+    }
+
+    // here it is assumed that user is in authObj
+    const user = await userService.findUserById(res.locals.authObj.userId);
+    if (!user) {
+      infoResponse = new InfoResponse(res.translate('user.notfound'));
+      res.status(CONSTANTS.HTTP_STATUS_BAD_REQUEST).json(infoResponse);
+      return;
+    }
+
+    await userService.uploadProfile(profileImage, user.id);
+    infoResponse = new InfoResponse(res.translate('myprofile.save.success'));
+    res.status(CONSTANTS.HTTP_STATUS_OK).json(infoResponse);
+  });
+};
+
 const getUser = async (req, res) => {
   const user = await userService.findUserByIdWithRoles(req.params.userId);
   if (!user) {
@@ -335,6 +359,7 @@ const getLoggedInUserBasicInfo = async (req, res) => {
   resUserObj.userName = user.userName;
   resUserObj.givenName = user.givenName;
   resUserObj.roles = user.roles;
+  resUserObj.profileImage = user.profileImage;
   res.status(CONSTANTS.HTTP_STATUS_OK).json(resUserObj);
 };
 
@@ -360,6 +385,7 @@ module.exports = {
   authenticateUser,
   changePassword,
   updateMyProfile,
+  uploadProfile,
   getUser,
   getLoggedInUserBasicInfo,
   getAllValidUsers,
